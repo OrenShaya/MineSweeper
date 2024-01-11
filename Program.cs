@@ -22,7 +22,7 @@ void DrawBoard(int[,] mineField, int row, int cols)
             if (mineField[i,j] == (int)content.MINE)
                 Console.Write('X');
             else
-                Console.Write('-');
+                Console.Write(mineField[i,j]);
         }
         Console.WriteLine();
     }
@@ -53,9 +53,18 @@ while (minesToCreate > 0)
     mineField[x, y] = (int)content.MINE;
     
     // do numbers around a mine here
-    for (int i = x-1; i < x+1; i++)
+    for (int i = x-1; i <= x+1; i++)
     {
-
+        if (i < 0 || i >= rows) 
+            continue;
+        for (int j = y-1; j <= y+1; j++)
+        {
+            if (j < 0 || j >= columns)
+                continue;
+            if (i == x && j == y)
+                continue;
+            mineField[i, j]++;
+        }
     }
 
     minesToCreate--;
